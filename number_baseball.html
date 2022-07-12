@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>숫자야구</title>
+</head>
+<body>
+  <form id="form">
+    <input type="text" id="input">
+    <button>확인</button>
+  </form>
+  <div id="logs"></div>
+
+  <script>
+    const $input = document.querySelector('#input');
+    const $form = document.querySelector('#form');
+    const $logs = document.querySelector('#logs');
+
+    // 1~9 숫자 추출
+    // const numbers = []; // 단순히 값들만 모아놓을땐 배열
+    // for(let n=0; n<9; n++) {
+    //   numbers.push(n+1);  // [1,2,3,4,5,6,7,8,9]
+    // }
+    // 위 for문 한줄로 줄이기
+    const numbers = Array(9).fill().map((v, i) => i + 1);
+    /*
+    Array(9) : 길이가 9인 배열을 만듬
+    fill() : 배열의 요소로 undefined를 채워넣음
+    map : 요소들을 1:1로 짝지어서 다른값으로 변환
+    */
+
+    // 4번 반복 (네자리 숫자)
+    const answer = [];
+    for(let n=0; n<4; n++) {
+      const index = Math.floor(Math.random() * (numbers.length - n)); // 0~8 정수 (나중에 +1 해줘야함)
+      answer.push(numbers[index]);
+      numbers.splice(index, 1); // 뽑힌 숫자는 numbers 배열에서 지워줌
+    }
+    console.log(answer);
+    const tries = [];
+
+    function checkInput(input) {
+      if(input.length !== 4) {
+        return alert('4자리 숫자를 입력해주세요');        
+      }
+
+      if(new Set(input).size !== 4) { // new Set은 나중에 배울건데 length가 아니고 size
+        return alert('중복되지 않게 입력해주세요.');
+      }
+
+      if(tries.includes(input)) {
+        return alert('이미 시도한 값입니다.');
+      }
+      
+      return true;
+    } // input값 검사하는 코드
+
+    let outCount = 0; // 밑에서 선언하면 자꾸 0으로 초기화됨
+
+    $form.addEventListener('submit', (event) => {
+      event.preventDefault(); // 기본동작 막기
+      const value = $input.value;
+      $input.value = '';  // input박스 글자 지워주기
+      const valid = checkInput(value);
+    
+    if (!valid) return;
+    
+    if(answer.join('') === value) {
+      $logs.append(`${value} : 홈런!`);
+      return;
+    }
+
+    function outReturn() {
+      $logs.appendChild(document.createTextNode(`패배, 정답은 ${answer.join('')}`));
+    }
+
+    if(tries.length >= 9) { // 10번째 시도인 상황이 tries.lenght=9임
+      //const message = document.createTextNode(`패배, 정답은 ${answer.join('')}`);
+      //$logs.appendChild(document.createTextNode(`패배, 정답은 ${answer.join('')}`));
+      outReturn();
+      return;
+    }
+
+    // 몇스트라이크 몇볼 검사
+    let strike = 0;
+    let ball = 0;
+
+    for(let i=0; i<answer.length; i++) {
+      const index = value.indexOf(answer[i]);
+      if(index > -1) {  // 숫자 일치
+        if(index === i) { // 자리도 일치
+          strike += 1;
+        } else {  // 숫자일치, 자리불일치
+          ball += 1;
+        }
+      }
+    }
+
+    // 위 for문을 foreach문으로 변경
+    // answer.forEach((number, aIndex) => {
+    //   const index = value.IndexOf(String(number));
+    //   if(index > -1) {
+    //     if(index === aIndex) {
+    //       strike += 1;
+    //     } else {
+    //       ball += 1;
+    //     }
+    //   }
+    // });
+
+    if(strike === 0 && ball === 0) {
+      outCount++;
+      console.log(outCount);
+      $logs.append(`${value} : ${outCount}아웃!`, document.createElement('br'));
+    } else {
+      $logs.append(`${value} : ${strike}스트라이크 ${ball}볼`, document.createElement('br'));
+    }
+
+    if(outCount === 3) {
+      //$logs.appendChild(document.createTextNode(`패배, 정답은 ${answer.join('')}`));
+      outReturn();
+      return;
+    }
+
+    tries.push(value);
+  })
+</script>
+</body>
+</html>
