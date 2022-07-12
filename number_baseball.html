@@ -34,7 +34,7 @@
     // 4번 반복 (네자리 숫자)
     const answer = [];
     for(let n=0; n<4; n++) {
-      const index = Math.floor(Math.random() * (numbers.length - n)); // 0~8 정수 (나중에 +1 해줘야함)
+      const index = Math.floor(Math.random() * (numbers.length - n)); // 0~8 정수
       answer.push(numbers[index]);
       numbers.splice(index, 1); // 뽑힌 숫자는 numbers 배열에서 지워줌
     }
