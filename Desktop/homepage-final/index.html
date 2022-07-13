@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <style>
+        *{margin: 0;padding: 0;} 
+         
+        #top{
+            padding: 8px 12px;
+            background-color:rgb(35,85,124) ;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;   
+            /*position: sticky;  */       
+        }   
+        #top a{
+            text-decoration: none;
+            color: white;
+        }
+        #top .logo{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            list-style: none;
+        }
+        #top .logo li{
+            padding: 8px 15px;
+            font-family: fantasy;
+            font-size: 30px;
+        }
+
+        #top .menu{
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+        }
+        #top .menu li{
+            padding: 8px 15px;
+            font-size: 20px;            
+        }
+        #top .menu li:hover{
+            background-color:tomato;
+            border-radius: 10px;            
+        }
+
+        #top .login{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            list-style: none;
+        }
+        #top .login li{
+            padding: 8px 15px;
+            font-size: 15px;            
+        }
+
+        #land{
+            height: 400px;
+            background-image: url("image/flower.jpg");
+            background-size: cover;                       
+        }
+
+        #pic_array{
+            display: flex;
+        justify-content: center;
+            align-items: center;
+            padding: 0px auto;
+            margin-top: 30px;
+        }
+        #pic_array ul{
+            margin: 0px 5px;
+            list-style:none ;
+            padding: 0px auto;
+        }
+        #pic_array img{
+            border-radius: 10%;
+        }
+        
+        @media screen and (max-width:768px){
+                #top{
+                      flex-direction: column;
+                }
+                
+                #top .menu{
+                    flex-direction: column;
+                    text-align: center;
+                    /*width: 100%;*/
+                }
+                #land{
+                    height: 200px;
+                }
+                #top .menu li{
+                    width: 100%;
+                } 
+                #pic_array img{
+                    width:100%;
+                }         
+                
+            }             
+           </style> 
+           <script>
+            function popup(){
+                var win1;
+                win1=window.open("popup.html","win_popup","width=500px,height=500px");
+            }
+            function login(){
+                var win2;
+                win2=window.open("login.html","win_login","width=500px,height=350px");
+            }
+            function map(){
+                var win3;
+                win3=window.open("map.html","win_map","width=700px,height=800px");
+            }
+            </script>
+</head>
+
+<body onload="popup()">
+    <nav id="top">
+        <ul class="logo">
+            <li><a href="index.html"><img src="image/icon3.png"></a></li>
+            <li><a href="index.html">Season</a></li>
+        </ul>
+        <ul class="menu">
+            <li><a href="spring.html">Spring</a></li>
+            <li><a href="summer.html">Summer</a></li>
+            <li><a href="fall.html">Fall</a></li>
+            <li><a href="winter.html">Winter</a></li>
+        </ul>
+        <ul class="login">
+            <li><a href="javascript:map()"><img src=image/icon17.png></a></li>
+            <li><a href="javascript:login()">login</a></li>
+            <li><a href="javascript:popup()">popup</a></li>
+        </ul>
+    </nav>
+    <section id="land">
+        <div></div>
+    </section>
+    <section id="pic_array">
+        <ul>
+            <li><img src="image/spring1.jpg"></li>
+        </ul>
+        <ul>
+            <li><img src="image/summer1.jpg"></li>
+        </ul>
+        <ul>
+            <li><img src="image/fall3.jpg"></li>
+            <li><img src="image/fall2.jpg"></li>
+        </ul>
+        <ul>
+            <li><img src="image/winter1.jpg"></li>
+        </ul>
+
+    </section>
+                              
+</body>
+</html>
